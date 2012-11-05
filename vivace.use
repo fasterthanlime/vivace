@@ -1,6 +1,6 @@
 
 Name: vivace
 Description: An ooc binding for Allegro
-Libs: -lallegro_main, -lallegro, -lallegro_image, -lallegro_primitives
+Libs: -lallegro_main, -lallegro, -lallegro_image, -lallegro_primitives, -lallegro_font, -lallegro_ttf
 SourcePath: source
 

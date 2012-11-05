@@ -1,11 +1,15 @@
 
 include allegro5/allegro
 include allegro5/allegro_image
+include allegro5/allegro_font
+include allegro5/allegro_ttf
 include allegro5/allegro_primitives
 
 AL: class {
   init: extern(al_init) static func -> Int
   initImageAddon: extern(al_init_image_addon) static func -> Int
+  initFontAddon: extern(al_init_font_addon) static func -> Int
+  initTtfAddon: extern(al_init_ttf_addon) static func -> Int
   initPrimitivesAddon: extern(al_init_primitives_addon) static func -> Int
 
   installMouse: extern(al_install_mouse) static func
@@ -245,4 +249,15 @@ KeyboardState: cover from ALLEGRO_KEYBOARD_STATE {
 
 al_get_keyboard_state: extern func (state: KeyboardState*)
 al_key_down: extern func (state: KeyboardState*, key: Key) -> Bool
+
+Font: cover from ALLEGRO_FONT* {
+  load: extern(al_load_ttf_font) static func (path: CString, size: Int, flags: Int) -> This
+  drawText: extern(al_draw_text) func (color: Color, x: Int, y: Int, align: Align, text: CString)
+}
+
+Align: enum {
+  centre: extern(ALLEGRO_ALIGN_CENTRE)
+  left: extern(ALLEGRO_ALIGN_LEFT)
+  right: extern(ALLEGRO_ALIGN_RIGHT)
+}
 
