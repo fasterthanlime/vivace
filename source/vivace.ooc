@@ -4,6 +4,8 @@ include allegro5/allegro_image
 include allegro5/allegro_font
 include allegro5/allegro_ttf
 include allegro5/allegro_primitives
+include allegro5/allegro_audio
+include allegro5/allegro_acodec
 
 AL: class {
   init: extern(al_init) static func -> Int
@@ -11,9 +13,11 @@ AL: class {
   initFontAddon: extern(al_init_font_addon) static func -> Int
   initTtfAddon: extern(al_init_ttf_addon) static func -> Int
   initPrimitivesAddon: extern(al_init_primitives_addon) static func -> Int
+  initAcodecAddon: extern(al_init_acodec_addon) static func -> Int
 
   installMouse: extern(al_install_mouse) static func
   installKeyboard: extern(al_install_keyboard) static func
+  installAudio: extern(al_install_audio) static func
 
   clearToColor: extern(al_clear_to_color) static func (color: Color)
   flipDisplay: extern(al_flip_display) static func
@@ -24,6 +28,8 @@ AL: class {
 
   getMouseEventSource: extern(al_get_mouse_event_source) static func -> EventSource
   getKeyboardEventSource: extern(al_get_keyboard_event_source) static func -> EventSource
+
+  reserveSamples: extern(al_reserve_samples) static func (numSamples: Int)
 }
 
 DisplayMode: cover from ALLEGRO_DISPLAY_MODE {
@@ -259,5 +265,20 @@ Align: enum {
   centre: extern(ALLEGRO_ALIGN_CENTRE)
   left: extern(ALLEGRO_ALIGN_LEFT)
   right: extern(ALLEGRO_ALIGN_RIGHT)
+}
+
+Sample: cover from ALLEGRO_SAMPLE* {
+  load: extern(al_load_sample) static func (path: CString) -> This
+  play: extern(al_play_sample) func (gain: Float, pan: Float, speed: Float, playMode: PlayMode, retID: SampleId*)
+  destroy: extern(al_destroy_sample) func
+}
+
+PlayMode: enum {
+  ONCE: extern(ALLEGRO_PLAYMODE_ONCE)
+  LOOP: extern(ALLEGRO_PLAYMODE_LOOP)
+  BIDIR: extern(ALLEGRO_PLAYMODE_BIDIR)
+}
+
+SampleId: cover from ALLEGRO_SAMPLE_ID {
 }
 
