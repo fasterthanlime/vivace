@@ -56,7 +56,10 @@ Timer: cover from ALLEGRO_TIMER* {
 
 Bitmap: cover from ALLEGRO_BITMAP* {
   new: extern(al_create_bitmap) static func (width, height: Int) -> This
+  load: extern(al_load_bitmap) static func (path: CString) -> This
   destroy: extern(al_destroy_bitmap) func
+  getWidth: extern(al_get_bitmap_width) func -> Int
+  getHeight: extern(al_get_bitmap_height) func -> Int
 }
 
 EventQueue: cover from ALLEGRO_EVENT_QUEUE* {
